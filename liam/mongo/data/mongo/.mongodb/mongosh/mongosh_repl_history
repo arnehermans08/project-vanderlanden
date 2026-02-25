@@ -1,5 +1,7 @@
 exit
 use db1
+exit
+use db1
 show dbs
 ls
 db
