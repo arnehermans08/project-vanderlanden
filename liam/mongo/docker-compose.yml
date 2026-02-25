@@ -1,0 +1,10 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: vanderlande-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./data/mongo:/data/db
