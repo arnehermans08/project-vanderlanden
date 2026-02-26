@@ -1,0 +1,39 @@
+services:
+  # MongoDB Database
+  mongo:
+    image: mongo:7
+    container_name: vanderlande-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./mongo/data:/data/db
+
+  # Python API (Backend voor DB)
+  backend-python:
+    build: 
+      context: ./mongo 
+      dockerfile: ../Dockerfile.python
+    container_name: vanderlande-python-api
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGO_URI=mongodb://root:password@mongo:27017/
+    depends_on:
+      - mongo
+
+  # Node.js Server (Frontend & WebSockets)
+  frontend-node:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: vanderlande-node-web
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./public:/app/public
+    depends_on:
+      - backend-python
