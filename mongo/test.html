@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h2>MongoDB Test Page</h2>
+
+    <button onclick="insertData()">Insert</button>
+    <button onclick="extractData()">Extract</button>
+    <button onclick="cleanupData()">Cleanup (2m)</button>
+    <button onclick="deepClean()">Deep Clean</button>
+
+    <p id="status"></p>
+
+    <pre id="output">Data verschijnt hier...</pre>
+
+    <script>
+        const API = 'http://127.0.0.1:8080';
+
+        // 1. DATA TOEVOEGEN
+        async function insertData() {
+            const res = await fetch(`${API}/sensor-data-insert`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    cartId: "ID-" + Math.floor(Math.random() * 100),
+                    loc: "Hal-A",
+                    type: "Temp",
+                    value: 20
+                })
+            });
+            const out = await res.json();
+            document.getElementById('status').innerText = "Ingevoegd: " + out.mongo_id;
+        }
+
+        // 2. DATA OPHALEN
+        async function extractData() {
+            const res = await fetch(`${API}/sensor-data-extract`, { method: 'POST' });
+            const data = await res.json();
+            document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+        }
+
+        // 3. OUDE DATA VERWIJDEREN
+        async function cleanupData() {
+            const res = await fetch(`${API}/cleanup`, { method: 'POST' });
+            const out = await res.json();
+            alert(out.message);
+        }
+
+        // 4. ALLES VERWIJDEREN
+        async function deepClean() {
+            const res = await fetch(`${API}/deepclean`, { method: 'POST' });
+            const out = await res.json();
+            document.getElementById('output').innerText = "Leeg";
+            alert(out.message);
+        }
+    </script>
+
+</body>
+</html>
