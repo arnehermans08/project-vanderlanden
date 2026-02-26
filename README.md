@@ -1,6 +1,6 @@
-## API ports: 
+## API BE ports: 
   - API DB: 8080
-  - API FE: 5000
+
 ## DB ports:
   - DB: 27017
   
@@ -8,6 +8,9 @@
 
 ## DB naam: dbVdl
 
+## API FE ports: 
+  - API FE: 5000
+
 ## API-Fe-endpoints: 
-  - /sensors (haal de data van de sensors op)
-    
+  - /realtimedata
+  - /grafiekendata
