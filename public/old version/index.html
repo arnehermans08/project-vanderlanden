@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project 4TW</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('banden')">Banden</a>
+        <a onclick="showPage('carts')">Carts</a>
+        <a onclick="showPage('sensors')">Sensors</a>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <h1>Hier komt alle data:</h1>
+    </header>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- Home pagina -->
+        <div id="home" class="page visible">
+            <h2>Home</h2>
+            <p>Welkom!</p>
+
+            <br><br><br>
+
+            <!-- Track container -->
+            <div class="track-container" id="homeTrackContainer">
+                <!-- Track en karretjes worden door JS toegevoegd -->
+            </div>
+
+
+            <!-- Ruimte -->
+            <div id="bigSpace"></div>
+
+            <!-- Segment kleur aanpassen -->
+            <h1>Track kleur aanpassen</h1>
+            <div class="segment-color-controls">
+                <label for="segmentColorSelect">Kies segment:</label>
+                <select id="segmentColorSelect"></select>
+
+                <label for="colorSelect">Kies kleur:</label>
+                <select id="colorSelect"></select>
+
+                <button onclick="applySegmentColor()">Wijzig kleur</button>
+            </div>
+            <br><br>
+
+            <!-- Karretjes verplaatsen -->
+            <h1>Cart verplaatsen</h1>
+            <div class="cart-move-controls">
+                <label for="cartMoveSelect">Kies karretje:</label>
+                <select id="cartMoveSelect"></select>
+
+                <label for="cartMoveSegment">Kies segment:</label>
+                <select id="cartMoveSegment"></select>
+
+                <button onclick="moveSelectedCart()">Verplaats</button>
+            </div>
+            <br><br>
+
+            <!-- Karretjes kleur aanpassen -->
+            <h1>Cart kleur aanpassen</h1>
+            <div class="cart-color-controls">
+                <label for="cartColorSelect">Kies karretje:</label>
+                <select id="cartColorSelect"></select>
+
+                <label for="cartColorChoose">Kies kleur:</label>
+                <select id="cartColorChoose"></select>
+
+                <button onclick="colorSelectedCart()">Wijzig kleur</button>
+            </div>
+        </div>
+
+    </div> <!-- einde content -->
+
+    <!-- Andere pagina’s -->
+    <div id="banden" class="page">
+        <h2>Banden</h2>
+        <p>Hier staat informatie.</p>
+    </div>
+
+    <div id="carts" class="page">
+        <h2>Carts</h2>
+        <p>Hier komt info.</p>
+    </div>
+
+    <div id="sensors" class="page">
+        <h2>Sensors</h2>
+        <p>Hier komt info.</p>
+    </div>
+
+    <!-- Config en script -->
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+
+</body>
+
+</html>

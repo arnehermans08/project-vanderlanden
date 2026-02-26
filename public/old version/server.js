@@ -5,7 +5,7 @@ let WebSocket = require('ws');
 
 //-----------test mode--------------
 let USE_FAKE_DATA = true;
-//-------------------------------------
+//-----------------------------------------
 
 let app = express();
 let port = 3000;
