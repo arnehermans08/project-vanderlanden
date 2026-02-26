@@ -10,7 +10,7 @@ CORS(app)
 
 # MongoDB verbinding
 client = MongoClient("mongodb://root:password@mongo:27017/")
-db = client["db1"]
+db = client["dbVdl"]
 collection = db["sensors"]
 
 @app.route('/sensor-data-insert', methods=['POST'])
