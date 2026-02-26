@@ -1,57 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Vanderlande API Test Console</title>
+</head>
 <body>
 
-    <h2>MongoDB Test Page</h2>
+    <h1>Vanderlande API Test Console</h1>
+    <p>Status: <span id="status">Gereed</span></p>
 
-    <button onclick="insertData()">Insert</button>
-    <button onclick="extractData()">Extract</button>
-    <button onclick="cleanupData()">Cleanup (2m)</button>
-    <button onclick="deepClean()">Deep Clean</button>
+    <fieldset>
+        <legend>Sensoren</legend>
+        <button onclick="apiCall('/sensor-data-insert', 'POST', {cartId:'C1', loc:'A1', type:'Temp', value:20})">1. Voeg Sensor toe</button>
+        <button onclick="apiCall('/sensor-data-extract', 'POST')">2. Toon alle Sensoren</button>
+    </fieldset>
 
-    <p id="status"></p>
+    <fieldset>
+        <legend>Locaties</legend>
+        <button onclick="apiCall('/locatie-data-insert', 'POST', {locId:'L1', name:'Sorteerband', segment:'Noord'})">3. Voeg Locatie toe</button>
+        <button onclick="apiCall('/locatie-data-extract', 'POST')">4. Toon alle Locaties</button>
+    </fieldset>
 
-    <pre id="output">Data verschijnt hier...</pre>
+    <fieldset>
+        <legend>Database Beheer</legend>
+        <button onclick="apiCall('/cleanup', 'POST')">5. Verwijder oude data (>60 dagen)</button>
+        <button onclick="apiCall('/deepclean', 'POST')">6. VERWIJDER ALLES (Deep Clean)</button>
+    </fieldset>
+
+    <h3>Output (JSON):</h3>
+    <pre id="output" style="background: #eee; padding: 10px;">Data verschijnt hier...</pre>
 
     <script>
-        const API = 'http://127.0.0.1:8080';
+        // De API is leeg omdat het bestand via de Flask-server zelf wordt geopend
+        const API = ''; 
 
-        // 1. DATA TOEVOEGEN
-        async function insertData() {
-            const res = await fetch(`${API}/sensor-data-insert`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    cartId: "ID-" + Math.floor(Math.random() * 100),
-                    loc: "Hal-A",
-                    type: "Temp",
-                    value: 20
-                })
-            });
-            const out = await res.json();
-            document.getElementById('status').innerText = "Ingevoegd: " + out.mongo_id;
-        }
+        async function apiCall(endpoint, method, bodyData = null) {
+            const statusElement = document.getElementById('status');
+            const outputElement = document.getElementById('output');
+            
+            statusElement.innerText = "Bezig met aanroep: " + endpoint + "...";
+            
+            try {
+                const options = { method: method };
+                if (bodyData) {
+                    options.headers = { 'Content-Type': 'application/json' };
+                    options.body = JSON.stringify(bodyData);
+                }
 
-        // 2. DATA OPHALEN
-        async function extractData() {
-            const res = await fetch(`${API}/sensor-data-extract`, { method: 'POST' });
-            const data = await res.json();
-            document.getElementById('output').innerText = JSON.stringify(data, null, 2);
-        }
-
-        // 3. OUDE DATA VERWIJDEREN
-        async function cleanupData() {
-            const res = await fetch(`${API}/cleanup`, { method: 'POST' });
-            const out = await res.json();
-            alert(out.message);
-        }
-
-        // 4. ALLES VERWIJDEREN
-        async function deepClean() {
-            const res = await fetch(`${API}/deepclean`, { method: 'POST' });
-            const out = await res.json();
-            document.getElementById('output').innerText = "Leeg";
-            alert(out.message);
+                const response = await fetch(API + endpoint, options);
+                const result = await response.json();
+                
+                outputElement.innerText = JSON.stringify(result, null, 2);
+                statusElement.innerText = "Succes: " + endpoint;
+            } catch (error) {
+                outputElement.innerText = "Fout bij aanroep: " + error.message;
+                statusElement.innerText = "FOUT opgetreden";
+            }
         }
     </script>
 
