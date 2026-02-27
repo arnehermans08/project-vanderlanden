@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Vanderlande API Test Console</title>
+</head>
+<body>
+
+    <h1>Vanderlande API Test Console</h1>
+    <p>Status: <span id="status">Gereed</span></p>
+
+    <fieldset>
+        <legend>Sensoren</legend>
+        <button onclick="apiCall('/sensor-data-insert', 'POST', {cartId:'C1', loc:'A1', type:'Temp', value:20})">1. Voeg Sensor toe</button>
+        <button onclick="apiCall('/sensor-data-extract', 'POST')">2. Toon alle Sensoren</button>
+    </fieldset>
+
+    <fieldset>
+        <legend>Locaties</legend>
+        <button onclick="apiCall('/locatie-data-insert', 'POST', {locId:'L1', name:'Sorteerband', segment:'Noord'})">3. Voeg Locatie toe</button>
+        <button onclick="apiCall('/locatie-data-extract', 'POST')">4. Toon alle Locaties</button>
+    </fieldset>
+
+    <fieldset>
+        <legend>Database Beheer</legend>
+        <button onclick="apiCall('/cleanup', 'POST')">5. Verwijder oude data (>60 dagen)</button>
+        <button onclick="apiCall('/deepclean', 'POST')">6. VERWIJDER ALLES (Deep Clean)</button>
+    </fieldset>
+
+    <h3>Output (JSON):</h3>
+    <pre id="output" style="background: #eee; padding: 10px;">Data verschijnt hier...</pre>
+
+    <script>
+        // De API is leeg omdat het bestand via de Flask-server zelf wordt geopend
+        const API = ''; 
+
+        async function apiCall(endpoint, method, bodyData = null) {
+            const statusElement = document.getElementById('status');
+            const outputElement = document.getElementById('output');
+            
+            statusElement.innerText = "Bezig met aanroep: " + endpoint + "...";
+            
+            try {
+                const options = { method: method };
+                if (bodyData) {
+                    options.headers = { 'Content-Type': 'application/json' };
+                    options.body = JSON.stringify(bodyData);
+                }
+
+                const response = await fetch(API + endpoint, options);
+                const result = await response.json();
+                
+                outputElement.innerText = JSON.stringify(result, null, 2);
+                statusElement.innerText = "Succes: " + endpoint;
+            } catch (error) {
+                outputElement.innerText = "Fout bij aanroep: " + error.message;
+                statusElement.innerText = "FOUT opgetreden";
+            }
+        }
+    </script>
+
+</body>
+</html>
