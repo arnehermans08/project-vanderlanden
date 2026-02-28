@@ -1,3 +1,9 @@
+voor Arne: mail sturen naar william thijs:
+  - laatste versie esp zender template
+  - vragen voor alle data namen(temperatuur, afstand, kleur,...) te delen.
+  - uitleggen van locatiebepaling(1=segment1, 2= segment2,...)
+<br>
+
 ## API BE ports: 
   - API DB: 8080
 
@@ -14,6 +20,13 @@
 ## API-Fe-endpoints: 
   - /realtimedata
   - /grafiekendata
+
+<br>
+
+<br>
+
+<br>
+
 
 
 # 🏗️ Project Vanderlanden - Architectuuroverzicht
@@ -62,3 +75,6 @@ flowchart TB
     style PI fill:#e6f3ff,stroke:#0066cc,stroke-width:2px
     style WEB fill:#e6ffe6,stroke:#00cc00,stroke-width:2px
     style CLIENT fill:#fff0e6,stroke:#ff9933,stroke-width:2px
+
+
+
