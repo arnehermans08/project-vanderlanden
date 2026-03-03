@@ -77,15 +77,22 @@ def cleanup_data():
         "threshold_timestamp": threshold_timestamp
     }), 200
 
-# Deepclean (verwijder ALLES)
 @app.route('/deepclean', methods=['POST'])
 def deep_clean():
-    result = collection_sensors.delete_many({})
-    return jsonify({
-        "status": "success",
-        "message": "De volledige collectie is leeggemaakt.",
-        "deleted_count": result.deleted_count
-    }), 200
+    try:
+        res_sensors = collection_sensors.delete_many({})
+        res_locatie = collection_locatie.delete_many({})
+
+        totaal = res_sensors.deleted_count + res_locatie.deleted_count
+
+        return jsonify({
+            "status": "success",
+            "message": "Alle data is verwijderd uit de database.",
+            "deleted_count": totaal
+        }), 200
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8080)
