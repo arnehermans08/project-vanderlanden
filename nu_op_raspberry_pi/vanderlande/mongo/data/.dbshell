@@ -1,0 +1,6 @@
+db
+use dbVdl
+db
+show collections
+db.metings.deleteMany({})
+db.metings.count()
