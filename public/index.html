@@ -4,103 +4,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>project 4TW</title>
+    <title>Project 4TW Dashboard</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
 
-    <!-- Sidebar -->
     <div class="sidebar">
-        <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('banden')">Banden</a>
-        <a onclick="showPage('carts')">Carts</a>
-        <a onclick="showPage('sensors')">Sensors</a>
+        <a href="#trackSection">Track</a>
+        <a href="#bandenSection">Banden</a>
+        <a href="#cartsSection">Carts</a>
+        <a href="#sensorsSection">Sensors</a>
     </div>
 
-    <!-- Header -->
     <header class="site-header">
-        <h1>Hier komt alle data:</h1>
+        4TW Dashboard
     </header>
 
-    <!-- Content -->
     <div class="content">
 
-        <!-- Home pagina -->
-        <div id="home" class="page visible">
-            <h2>Home</h2>
-            <p>Welkom!</p>
-
-            <br><br><br>
-
-            <!-- Track container -->
-            <div class="track-container" id="homeTrackContainer">
-                <!-- Track en karretjes worden door JS toegevoegd -->
+        <div id="trackSection" class="section">
+            <h1>Track Data</h1>
+            <div class="track-container">
+                <div class="track">
+                    <div class="track-segment">S1</div>
+                    <div class="track-segment">S2</div>
+                    <div class="track-segment">S3</div>
+                    <div class="track-segment">S4</div>
+                </div>
             </div>
+        </div>
 
-
-            <!-- Ruimte -->
-            <div id="bigSpace"></div>
-
-            <!-- Segment kleur aanpassen -->
-            <h1>Track kleur aanpassen</h1>
+        <div id="controlsWrapper">
             <div class="segment-color-controls">
+                <h1>Track kleur aanpassen</h1>
                 <label for="segmentColorSelect">Kies segment:</label>
                 <select id="segmentColorSelect"></select>
-
                 <label for="colorSelect">Kies kleur:</label>
                 <select id="colorSelect"></select>
-
                 <button onclick="applySegmentColor()">Wijzig kleur</button>
             </div>
-            <br><br>
 
-            <!-- Karretjes verplaatsen -->
-            <h1>Cart verplaatsen</h1>
             <div class="cart-move-controls">
+                <h1>Cart verplaatsen</h1>
                 <label for="cartMoveSelect">Kies karretje:</label>
                 <select id="cartMoveSelect"></select>
-
                 <label for="cartMoveSegment">Kies segment:</label>
                 <select id="cartMoveSegment"></select>
-
                 <button onclick="moveSelectedCart()">Verplaats</button>
             </div>
-            <br><br>
 
-            <!-- Karretjes kleur aanpassen -->
-            <h1>Cart kleur aanpassen</h1>
             <div class="cart-color-controls">
+                <h1>Cart kleur aanpassen</h1>
                 <label for="cartColorSelect">Kies karretje:</label>
                 <select id="cartColorSelect"></select>
-
                 <label for="cartColorChoose">Kies kleur:</label>
                 <select id="cartColorChoose"></select>
-
                 <button onclick="colorSelectedCart()">Wijzig kleur</button>
             </div>
         </div>
 
-    </div> <!-- einde content -->
+        <div id="bandenSection" class="section">
+            <h1>Banden</h1>
+            <p>Hier staat informatie over banden.</p>
+        </div>
 
-    <!-- Andere pagina’s -->
-    <div id="banden" class="page">
-        <h2>Banden</h2>
-        <p>Hier staat informatie.</p>
-    </div>
+        <div id="cartsSection" class="section">
+            <h1>Carts</h1>
+            <p>Hier komt info over carts.</p>
+        </div>
 
-    <div id="carts" class="page">
-        <h2>Carts</h2>
-        <p>Hier komt info.</p>
-    </div>
+        <div id="sensorsSection" class="section">
+            <h1>Sensors</h1>
+            <p>Hier komt info over sensors.</p>
+        </div>
 
-    <div id="sensors" class="page">
-        <h2>Sensors</h2>
-        <p>Hier komt info.</p>
-    </div>
-
-    <script src="./js/app.js"></script>
+    </div> 
 
 </body>
-
 </html>
