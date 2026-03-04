@@ -1,9 +1,3 @@
-voor Arne: mail sturen naar william thijs:
-  - laatste versie esp zender template
-  - vragen voor alle data namen(temperatuur, afstand, kleur,...) te delen.
-  - uitleggen van locatiebepaling(1=segment1, 2= segment2,...)
-<br>
-
 ## API BE ports: 
   - API DB: 8080
 
