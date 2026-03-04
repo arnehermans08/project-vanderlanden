@@ -12,17 +12,19 @@ uint8_t RECEIVER_MAC[] = {0xA4,0xF0,0x0F,0x8E,0x67,0x9C};
 
 // Dummy sensoren
 struct Sensor { const char* naam; float waarde; };
-Sensor sensoren[] = { {"temp",0}, {"hum",0}, {"licht",0} };
+Sensor sensoren[] = { {"temp",0} };
 const int AANTAL_SENSOREN = sizeof(sensoren)/sizeof(sensoren[0]);
 
-// Locatie als enkel getal
-float locatie = 3;
+// Locatie variabelen
+float locatie = 1;
+int zendingTeller = 0;
+const int ZENDINGEN_PER_LOCATIE = 10;
 
 // =======================
 // Setup
 // =======================
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   WiFi.mode(WIFI_STA);
   esp_wifi_set_channel(WIFI_CHANNEL, WIFI_SECOND_CHAN_NONE);
 
@@ -38,32 +40,40 @@ void setup() {
 }
 
 // =======================
+// Functie om locatie te updaten
+// =======================
+void updateLocatie() {
+  zendingTeller++;
+  if (zendingTeller % ZENDINGEN_PER_LOCATIE == 0) {
+    locatie++;
+    if (locatie > 4) locatie = 1;
+  }
+}
+
+// =======================
 // Functie om sensor te verzenden
 // =======================
 void sendSensor(const char* sensorNaam, float waarde) {
   StaticJsonDocument<128> doc;
 
   doc["id"] = ZENDER_ID;
-  doc["sensor"] = sensorNaam;
+  doc["type"] = sensorNaam;
   doc["waarde"] = waarde;
-  doc["locatie"] = locatie;  //getal
+  doc["locatie"] = locatie;
 
   char payload[128];
   size_t n = serializeJson(doc, payload, sizeof(payload));
   esp_now_send(RECEIVER_MAC, (uint8_t*)payload, n);
 
-  Serial.print("Sent -> ");
   Serial.println(payload);
+  updateLocatie();
 }
 
 // =======================
 // Loop
 // =======================
 void loop() {
-  // Dummy sensorwaarden
-  sensoren[0].waarde = random(200,300)/10.0;
-  sensoren[1].waarde = random(400,600)/10.0;
-  sensoren[2].waarde = random(0,1023);
+  sensoren[0].waarde = random(20,100);
 
   for (int i=0;i<AANTAL_SENSOREN;i++) {
     sendSensor(sensoren[i].naam,sensoren[i].waarde);
