@@ -24,10 +24,10 @@ function moveCartTo(cartId, segmentNumber) {
     let segmentWidth = trackWidth / segments;
     let cartWidth = cart.offsetWidth;
 
-    let left = (segmentNumber - 1) * segmentWidth + (segmentWidth - cartWidth) / 2;
-    cart.style.left = `${left}px`;
+    let left = 12.5 + (25 * (segmentNumber - 1)) - 4;
+    cart.style.left = `${left}%`;
     cart.dataset.segment = segmentNumber;
-    
+
     console.log(`karretje ${cartId} naar segment ${segmentNumber}`);
 }
 
@@ -48,10 +48,10 @@ function bepaalKleur(sensorType, waarde) {
     if (!trackConfig || !trackConfig.sensorThresholds || !trackConfig.colors) {
         return 'green';
     }
-    
+
     let thresholds = trackConfig.sensorThresholds[sensorType];
     if (!thresholds) return trackConfig.colors[0];
-    
+
     // thresholds: {1:0, 2:40, 3:70}
     if (waarde >= thresholds[3]) {
         return trackConfig.colors[2];  // rood
@@ -69,22 +69,22 @@ async function haalData() {
     try {
         const response = await fetch(API_URL + '/realtimedata');
         const data = await response.json();
-        
+
         if (data.success && data.data.length > 0) {
             // Alleen de ALLEREERSTE (nieuwste) meting gebruiken!
             let nieuwste = data.data[0];
-            
+
             console.log("Nieuwste meting:", nieuwste);
-            
+
             // Tabel met ALLE data (voor overzicht)
             toonData(data.data);
-            
+
             // ALLEEN DE NIEUWSTE gebruiken voor cart en segment
             moveCartTo(nieuwste.id, nieuwste.locatie);
-            
+            document.getElementById("temp"+ nieuwste.locatie).innerHTML = nieuwste.waarde + "°C"; //temp toevoeging
             let kleur = bepaalKleur(nieuwste.type, nieuwste.waarde);
             setSegmentColor(nieuwste.locatie, kleur);
-            
+
         } else {
             document.getElementById('realtime').innerHTML = '<p style="color:red">Geen data</p>';
         }
@@ -98,8 +98,8 @@ async function haalData() {
 // TABEL MAKEN (optioneel, maar handig voor overzicht)
 // ===========================================
 function toonData(metingen) {
-    let html = '<table><tr><th>Tijd</th><th>type</th><th>Waarde</th><th>Locatie</th></tr>';
-    
+    let html = '<table><tr><th>Time</th><th>type</th><th>Value</th><th>Location</th></tr>';
+
     for (let m of metingen) {
         let tijd = new Date(m.tijd).toLocaleTimeString();
         html += `<tr>
@@ -109,7 +109,7 @@ function toonData(metingen) {
             <td>${m.locatie}</td>
         </tr>`;
     }
-    
+
     document.getElementById('realtime').innerHTML = html;
 }
 
@@ -117,37 +117,42 @@ function toonData(metingen) {
 // TRACK AANMAKEN
 // ===========================================
 function createTrack() {
+
     let container = document.getElementById('homeTrackContainer');
     if (!container) return;
 
     container.innerHTML = '';
-
-    // Track
-    let track = document.createElement('div');
-    track.className = 'track';
-    container.appendChild(track);
-
-    // 4 segmenten
-    for (let i = 1; i <= 4; i++) {
-        let segment = document.createElement('div');
-        segment.className = 'track-segment';
-        segment.id = 'segment' + i;
-        segment.textContent = 'Segment ' + i;
-        track.appendChild(segment);
-    }
 
     // 1 karretje met id = "1"
     let cart = document.createElement('div');
     cart.className = 'cart';
     cart.id = '1';
     container.appendChild(cart);
-    
+
     let lading = document.createElement('div');
     lading.className = 'lading';
     cart.appendChild(lading);
 
+    // Track
+    let track = document.createElement('div');
+    track.className = 'track';
+    container.appendChild(track);
+
+
+
+    // 4 segmenten
+    for (let i = 1; i <= 4; i++) {
+        let segment = document.createElement('div');
+        segment.className = 'track-segment';
+        segment.id = 'segment' + i;
+        segment.innerHTML = 'Segment ' + i + `<div class="temp" id="temp${i}"></div>`;
+        track.appendChild(segment);
+    }
+
+
+
     console.log("Track klaar - karretje heeft id='1'");
-    
+
     // Zet karretje in segment 1 als start
     setTimeout(() => moveCartTo(1, 1), 200);
 }
@@ -159,7 +164,7 @@ async function maakGrafiek() {
     try {
         const response = await fetch(API_URL + '/grafiekendata');
         const data = await response.json();
-        
+
         if (data.labels && data.labels.length > 0) {
             const ctx = document.getElementById('grafiek').getContext('2d');
             new Chart(ctx, {
@@ -197,13 +202,13 @@ window.addEventListener('resize', () => {
 function scrollToSection(sectionId) {
     let element = document.getElementById(sectionId);
     if (!element) return;
-    
+
     // Bereken de positie van het element
     let elementPosition = element.getBoundingClientRect().top + window.scrollY;
-    
+
     // Scroll 20px extra naar boven (zodat de titel goed zichtbaar is)
     let offsetPosition = elementPosition - 80;
-    
+
     window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth'

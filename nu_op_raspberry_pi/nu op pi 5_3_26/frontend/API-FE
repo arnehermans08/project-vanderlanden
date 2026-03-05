@@ -53,7 +53,7 @@ app.get('/grafiekendata', async (req, res) => {
     res.json({
       labels: labels,
       datasets: [{
-        label: 'Sensor waarden',
+        label: 'Sensor values',
         data: waarden,
         borderColor: 'blue'
       }]
