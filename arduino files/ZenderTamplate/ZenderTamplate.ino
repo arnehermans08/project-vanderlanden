@@ -6,7 +6,7 @@
 // =======================
 // Instellingen
 // =======================
-#define ZENDER_ID 42
+#define ZENDER_ID 1
 #define WIFI_CHANNEL 1
 uint8_t RECEIVER_MAC[] = {0xA4,0xF0,0x0F,0x8E,0x67,0x9C};
 
@@ -18,7 +18,7 @@ const int AANTAL_SENSOREN = sizeof(sensoren)/sizeof(sensoren[0]);
 // Locatie variabelen
 float locatie = 1;
 int zendingTeller = 0;
-const int ZENDINGEN_PER_LOCATIE = 10;
+const int ZENDINGEN_PER_LOCATIE = 3;
 
 // =======================
 // Setup
@@ -80,5 +80,5 @@ void loop() {
     delay(200);
   }
 
-  delay(1000);
+  delay(3000);
 }
