@@ -4,7 +4,7 @@ body {
     background-color: #f4f7fb;
     color: #1A1A1A;
     font-size: 13px;
-    scroll-behavior: smooth; 
+    scroll-behavior: smooth;
 }
 
 /* ===== SIDEBAR ===== */
@@ -58,6 +58,19 @@ body {
     z-index: 1500;
 }
 
+.site-header #vdllogo {
+    background-color: #fff;;
+    height: 36px;
+    width: 192px;
+    background-image: url('../img/vanderlande-logo.webp');
+    background-position: center center;
+    background-size: 86%;
+    background-repeat: no-repeat;
+    border-radius: 3px;
+    margin-right: 15px;
+    
+}
+
 /* ===== CONTENT AREA ===== */
 .content {
     margin-left: 150px;
@@ -95,7 +108,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     background: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     border-radius: 4px;
     overflow: hidden;
 }
@@ -128,7 +141,7 @@ canvas {
     background: white;
     padding: 15px;
     border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     max-width: 100%;
     height: auto;
 }
@@ -143,7 +156,7 @@ canvas {
     padding: 15px;
     background: #ffffff;
     border-left: 4px solid #FA8112;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .track {
@@ -158,6 +171,7 @@ canvas {
 }
 
 .track-segment {
+    color: white;
     padding: 8px;
     text-align: center;
     background-color: rgb(223, 223, 223);
@@ -169,7 +183,7 @@ canvas {
     transition: background-color 0.3s ease;
 }
 
-.track-segment .temp{
+.track-segment .temp {
     color: white;
     padding-left: 5px;
     font-size: 12px;
@@ -188,7 +202,7 @@ canvas {
     background: #FA8112;
     border-radius: 20px;
     transition: left 0.5s ease, background-color 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Lading in karretje */
@@ -201,7 +215,7 @@ canvas {
     top: -35%;
     left: 50%;
     transform: translateX(-50%);
-    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* ===== CONTROLES (grid layout) ===== */
@@ -218,7 +232,7 @@ canvas {
     background: #ffffff;
     padding: 18px;
     border-top: 3px solid #FA8112;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     border-radius: 0 0 4px 4px;
 }
 
@@ -255,7 +269,7 @@ select {
 select:focus {
     border-color: #FA8112;
     outline: none;
-    box-shadow: 0 0 0 2px rgba(250,129,18,0.1);
+    box-shadow: 0 0 0 2px rgba(250, 129, 18, 0.1);
 }
 
 button {
@@ -288,7 +302,7 @@ button:hover {
     padding: 15px;
     background: white;
     border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 #realtime p[style*="red"] {
@@ -300,25 +314,26 @@ button:hover {
     .sidebar {
         width: 120px;
     }
-    
+
     .site-header {
         left: 120px;
         width: calc(100% - 120px);
+        display: flex;
     }
-    
+
     .content {
         margin-left: 120px;
     }
-    
+
     .controls-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
-    
+
     .track-container {
         max-width: 100%;
     }
-    
+
     .cart {
         min-width: 30px;
     }
@@ -333,25 +348,25 @@ button:hover {
         flex-wrap: wrap;
         padding: 10px;
     }
-    
+
     .sidebar a {
         padding: 8px 12px;
         border-left: none;
         border-bottom: 3px solid transparent;
     }
-    
+
     .sidebar a:hover {
         border-left: none;
         border-bottom: 3px solid #FA8112;
     }
-    
+
     .site-header {
         left: 0;
         width: 100%;
         top: auto;
         position: relative;
     }
-    
+
     .content {
         margin-left: 0;
         padding-top: 20px;
