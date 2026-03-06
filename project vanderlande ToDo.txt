@@ -1,0 +1,5 @@
+-nulmetingen mogelijkheid van opmeten voor nulwaardes (normale waardes)
+-makkelijk configureerbaar voor meerdere types sensoren
+-hover over segmenten
+-grafiek live maken
+-object georienteerd
