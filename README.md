@@ -1,3 +1,8 @@
+## pi info
+  - ssh: pi@pi
+  - login: pi
+  - password: raspberry
+
 ## API BE ports: 
   - API DB: 8080
 
